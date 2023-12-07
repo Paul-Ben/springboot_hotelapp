@@ -6,4 +6,5 @@ import com.hotel.hotel.entities.Hotel;
 
 public interface HotelRepository extends JpaRepository<Hotel, Long> {
     boolean existsByHotelEmail(String hotelEmail);
+    
 }
