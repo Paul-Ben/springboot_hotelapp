@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hotel.hotel.entities.Hotel;
+import com.hotel.hotel.exceptions.HotelNotFoundException;
 import com.hotel.hotel.repositories.HotelRepository;
 
 import lombok.AllArgsConstructor;
@@ -31,7 +32,12 @@ public class HotelServiceImpl implements HotelService {
 
     @Override
     public Hotel getHotelById(Long id) {
-        return hotelRepository.findById(id).get();
+        if (hotelRepository.existsById(id)) {
+            return hotelRepository.findById(id).get();
+        } else {
+            throw new HotelNotFoundException("Hotel with id: "+id+ " not found.");
+        }
+        
     }
 
     @Override
