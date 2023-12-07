@@ -2,6 +2,7 @@ package com.hotel.hotel.services;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hotel.hotel.entities.Hotel;
@@ -15,11 +16,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class HotelServiceImpl implements HotelService {
 
+    @Autowired
     HotelRepository hotelRepository;
 
     @Override
     public Hotel createHotel(Hotel hotel) {
-        return hotelRepository.save(hotel);
+        if (hotelRepository.existsByHotelEmail(hotel.getHotelEmail())) {
+            throw new DulicateHotelException("Hotel with this email already exists");
+        } else {
+            return hotelRepository.save(hotel);
+        }
+
     }
 
     @Override
@@ -29,7 +36,7 @@ public class HotelServiceImpl implements HotelService {
 
     @Override
     public List<Hotel> getAllHotels(Hotel hotel) {
-       return hotelRepository.findAll();
+        return hotelRepository.findAll();
     }
 
     @Override
