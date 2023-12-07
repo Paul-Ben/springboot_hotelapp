@@ -68,7 +68,6 @@ public class HotelRestController {
     public ResponseEntity<Hotel> updateHotel(@PathVariable Long id, @RequestBody Hotel hotel) {
         Hotel hotel_to_edit = hotelService.getHotelById(id);
         hotel_to_edit.setHotelName(hotel.getHotelName());
-        hotel_to_edit.setHotelId(hotel.getHotelId());
         hotel_to_edit.setHotelAddress(hotel.getHotelAddress());
         hotel_to_edit.setHotelStarRating(hotel.getHotelStarRating());
         hotel_to_edit.setHotelPhone(hotel.getHotelPhone());
