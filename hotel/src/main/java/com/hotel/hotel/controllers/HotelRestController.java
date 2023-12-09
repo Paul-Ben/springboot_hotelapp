@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,7 +46,7 @@ public class HotelRestController {
         String appId = randomIdGen.genrateRandomId();
         hotel.setHotelId(appId);
         Hotel newHotel = hotelService.createHotel(hotel);
-        return ResponseEntity.ok(newHotel);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newHotel);
 
     }
 
@@ -53,14 +54,14 @@ public class HotelRestController {
     @GetMapping
     public ResponseEntity<List<Hotel>> getMethodName(@RequestBody Hotel hotel) {
         List<Hotel> allHotels = hotelService.getAllHotels(hotel);
-        return ResponseEntity.ok(allHotels);
+        return ResponseEntity.status(HttpStatus.OK).body(allHotels);
     }
 
     // Read a single entity by its id
     @GetMapping("/{id}")
     public ResponseEntity<Hotel> getHotelById(@RequestBody Hotel hotel, @PathVariable Long id) {
         Hotel hotelbyId = hotelService.getHotelById(id);
-        return ResponseEntity.ok(hotelbyId);
+        return ResponseEntity.status(HttpStatus.OK).body(hotelbyId);
     }
 
     // Update an entity by its id
@@ -76,7 +77,7 @@ public class HotelRestController {
 
         Hotel updatedHotel = hotelService.updateHotel(hotel_to_edit, id);
 
-        return ResponseEntity.ok(updatedHotel);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedHotel);
     }
 
     // Delete a entity

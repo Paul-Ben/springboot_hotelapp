@@ -2,12 +2,15 @@ package com.hotel.hotel.services;
 
 import java.util.Random;
 
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 
-@Component
+
+@Configuration
 public class RandomIdGen {
 
+    @Bean
     public String genrateRandomId(){
          Random random = new Random();
         Integer randomId = random.nextInt(1000000) + 1;
